@@ -102,7 +102,7 @@ stages:
                 - task: AzureWebApp@1
                   displayName: Deploy to Azure Web App
                   inputs:
-                    azureSubscription: 'edecda7b-57b5-41b5-845a-33e9333d4186'
+                    azureSubscription: 'xbl'
                     appType: webApp
                     appName: bgg
                     package: $(Pipeline.Workspace)/drop/bgg.zip
