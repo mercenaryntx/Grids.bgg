@@ -1,0 +1,413 @@
+/* ── CSS Variables ───────────────────────────────────────────────────────────── */
+:root {
+  --bg:           #1a1b1e;
+  --surface:      #25262b;
+  --surface-2:    #2c2e33;
+  --border:       #373a40;
+  --text:         #c1c2c5;
+  --text-dim:     #5c5f66;
+  --text-bright:  #e9ecef;
+  --accent:       #228be6;
+  --accent-hover: #1c7ed6;
+  --danger:       #fa5252;
+  --cell-empty:   #2c2e33;
+  --radius:       6px;
+  --font:         'Inter', system-ui, sans-serif;
+}
+
+/* ── Reset ───────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body, #root { height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+button { font-family: inherit; cursor: pointer; }
+input, textarea { font-family: inherit; }
+
+/* ── Layout ──────────────────────────────────────────────────────────────────── */
+.app { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+
+/* Header */
+.app-header {
+  flex-shrink: 0;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+  z-index: 10;
+}
+.app-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1800px;
+  margin: 0 auto;
+}
+.app-logo { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 18px; color: var(--text-bright); }
+.logo-icon { font-size: 22px; }
+.header-actions { display: flex; gap: 8px; }
+
+/* Main area */
+.app-main { display: flex; flex: 1; overflow: hidden; justify-content: center; }
+
+/* ── Buttons ─────────────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid transparent;
+  transition: background 0.15s, border-color 0.15s, opacity 0.15s;
+}
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.btn-primary:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+.btn-ghost:hover { background: var(--surface-2); }
+
+.btn-load {
+  background: var(--surface-2);
+  color: var(--text);
+  border-color: var(--border);
+  padding: 7px 12px;
+  font-size: 13px;
+}
+.btn-load:hover:not(:disabled) { background: var(--border); }
+
+/* ── Search Modal ────────────────────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 16px;
+  backdrop-filter: blur(2px);
+}
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  width: min(680px, 100%);
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px 10px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.modal-title { font-size: 16px; font-weight: 700; color: var(--text-bright); }
+.modal-close {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-size: 22px;
+  line-height: 1;
+  padding: 0 4px;
+  transition: color 0.12s;
+}
+.modal-close:hover { color: var(--text-bright); }
+
+.modal-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 10px 18px 0;
+  flex-shrink: 0;
+}
+.modal-tab {
+  padding: 7px 14px;
+  border: none;
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 13px;
+  font-weight: 600;
+  border-bottom: 2px solid transparent;
+  transition: color 0.12s, border-color 0.12s;
+}
+.modal-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.modal-tab:not(.active):hover { color: var(--text); }
+
+.modal-input-row {
+  padding: 10px 18px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border);
+}
+.modal-collection-form { display: flex; gap: 8px; }
+
+.modal-input {
+  width: 100%;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  padding: 9px 12px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.modal-input:focus { border-color: var(--accent); }
+.modal-input::placeholder { color: var(--text-dim); }
+
+.modal-status {
+  font-size: 13px;
+  color: var(--text-dim);
+  text-align: center;
+  padding: 16px;
+  flex-shrink: 0;
+}
+.modal-error { color: var(--danger); }
+.modal-hint { color: var(--text-dim); font-style: italic; }
+
+/* Results — thumbnail grid */
+.modal-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 8px;
+  padding: 12px 18px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.modal-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  background: var(--surface-2);
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  padding: 8px 6px 6px;
+  cursor: pointer;
+  transition: border-color 0.12s, background 0.12s;
+  text-align: center;
+}
+.modal-result:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--surface-2)); }
+
+.modal-result-thumb {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+  background: var(--cell-empty);
+}
+.modal-result-thumb-empty {
+  width: 80px;
+  height: 80px;
+  border-radius: 4px;
+  background: var(--cell-empty);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+}
+
+.modal-result-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  width: 100%;
+}
+.modal-result-year { font-size: 10px; color: var(--text-dim); }
+
+.modal-attribution {
+  font-size: 11px;
+  color: var(--text-dim);
+  text-align: center;
+  padding: 8px 18px 12px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+/* ── Grid area ───────────────────────────────────────────────────────────────── */
+.grid-area {
+  flex: 1;
+  overflow: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+/* ── Grid container ──────────────────────────────────────────────────────────── */
+.grid-container {
+  width: min(100%, 820px);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--bg);
+  padding: 12px;
+  border-radius: 8px;
+}
+
+/* Title */
+.grid-title-wrap { display: flex; justify-content: center; padding: 4px 0 8px; }
+.grid-title {
+  display: block;
+  text-align: center;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-bright);
+  width: 100%;
+  max-width: 600px;
+  outline: none;
+  cursor: text;
+  letter-spacing: -0.3px;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+.grid-title:empty::before { content: 'Click to edit title'; color: var(--text-dim); }
+
+/* 4-column grid */
+.grid-cells {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3px;
+}
+
+/* ── Grid Cell ───────────────────────────────────────────────────────────────── */
+.grid-cell {
+  background: var(--surface);
+  border: 2px solid transparent;
+  border-radius: 4px;
+  overflow: visible;
+  transition: border-color 0.12s;
+  display: flex;
+  flex-direction: column;
+}
+.grid-cell:hover { border-color: var(--border); }
+
+/* thumbnail / empty zone — always square */
+.grid-cell-body {
+  aspect-ratio: 1 / 1;
+  cursor: pointer;
+  background: var(--cell-empty);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.grid-cell-body:hover { opacity: 0.88; }
+
+.grid-cell-empty span {
+  color: var(--text-dim);
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+  padding: 4px;
+}
+
+.grid-cell-game { width: 100%; height: 100%; position: relative; }
+.grid-cell-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* remove button — visible on hover */
+.grid-cell-remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  font-size: 15px;
+  line-height: 1;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.12s;
+}
+.grid-cell-remove:hover { background: var(--danger); }
+.grid-cell-game:hover .grid-cell-remove { display: flex; }
+
+/* Label */
+.grid-cell-label {
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 6px;
+  background: var(--surface);
+  cursor: text;
+  overflow: visible;
+}
+.grid-cell-label:hover { background: var(--surface-2); }
+
+.grid-cell-label-input {
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--font);
+  text-align: center;
+  width: 100%;
+  outline: none;
+  cursor: text;
+  line-height: 1.3;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+/* Grid footer */
+.grid-footer {
+  font-size: 11px;
+  color: var(--text-dim);
+  text-align: center;
+  padding-top: 4px;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────────── */
+@media (max-width: 500px) {
+  .grid-cells { grid-template-columns: repeat(4, 1fr); gap: 2px; }
+  .grid-container { padding: 6px; }
+  .modal-results { grid-template-columns: repeat(auto-fill, minmax(85px, 1fr)); }
+}

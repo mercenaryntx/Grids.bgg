@@ -1,0 +1,25 @@
+{
+  "title": "About Me: Board Games",
+  "cells": [
+    { "id": 0,  "label": "Favorite Game" },
+    { "id": 1,  "label": "Best Strategy" },
+    { "id": 2,  "label": "Favorite Art Style" },
+    { "id": 3,  "label": "Biggest Personal Impact" },
+    { "id": 4,  "label": "Best Mechanics" },
+    { "id": 5,  "label": "Overhated" },
+    { "id": 6,  "label": "Underrated" },
+    { "id": 7,  "label": "Overrated" },
+    { "id": 8,  "label": "Needs a New Edition" },
+    { "id": 9,  "label": "Criminally Overlooked" },
+    { "id": 10, "label": "Favorite Solo Game" },
+    { "id": 11, "label": "Best Co-op" },
+    { "id": 12, "label": "Best Filler" },
+    { "id": 13, "label": "Best With Many Players" },
+    { "id": 14, "label": "Not Usually My Thing, But..." },
+    { "id": 15, "label": "Turn My Brain Off" },
+    { "id": 16, "label": "Best With Friends" },
+    { "id": 17, "label": "Best Classic" },
+    { "id": 18, "label": "First Game I Loved" },
+    { "id": 19, "label": "Everyone Should Play This" }
+  ]
+}
