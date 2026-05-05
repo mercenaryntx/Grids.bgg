@@ -1,16 +1,15 @@
-import { useState, useRef, useCallback } from 'react';
+import { useRef, useCallback } from 'react';
+import { useLocalStorage } from './hooks/useLocalStorage';
 import html2canvas from 'html2canvas';
 import defaults from './defaults.json';
 import SearchModal from './components/SearchModal';
 import Grid from './components/Grid';
 
-function initCells() {
-  return defaults.cells.map((c) => ({ ...c, game: null }));
-}
+const defaultCells = () => defaults.cells.map((c) => ({ ...c, game: null }));
 
 export default function App() {
-  const [title, setTitle] = useState(defaults.title);
-  const [cells, setCells] = useState(initCells);
+  const [title, setTitle, removeTitle] = useLocalStorage('bgg-grid-title', defaults.title);
+  const [cells, setCells, removeCells] = useLocalStorage('bgg-grid-cells', defaultCells());
   const [modalCellId, setModalCellId] = useState(null); // null = closed
   const [downloading, setDownloading] = useState(false);
   const gridRef = useRef(null);
@@ -38,8 +37,8 @@ export default function App() {
 
   const handleReset = () => {
     if (window.confirm('Reset grid to defaults? All placed games will be removed.')) {
-      setTitle(defaults.title);
-      setCells(initCells());
+      removeTitle();
+      removeCells();
     }
   };
 

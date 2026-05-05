@@ -26,10 +26,10 @@ stages:
         steps:
 
           # Node / React ────────────────────────────────────────────────────────
-          - task: NodeTool@0
+          - task: UseNode@1
             displayName: Use Node $(nodeVersion)
             inputs:
-              versionSpec: $(nodeVersion)
+              version: $(nodeVersion)
 
           - script: npm ci
             workingDirectory: $(clientDir)
