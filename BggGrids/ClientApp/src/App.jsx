@@ -1,4 +1,4 @@
-import { useRef, useCallback } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import html2canvas from 'html2canvas';
 import defaults from './defaults.json';
